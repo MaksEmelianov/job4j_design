@@ -1,4 +1,4 @@
-# Job4j. Блок "Junior".
+# Job4j.ru - Блок "Junior".
 
 ## Коллекции Pro
 
