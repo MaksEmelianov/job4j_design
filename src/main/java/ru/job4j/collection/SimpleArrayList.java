@@ -56,10 +56,10 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     private void checkGrow() {
-        if (size == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
-        } else if (size == 0) {
+        if (size == 0) {
             container = Arrays.copyOf(container, 10);
+        } else if (size == container.length) {
+            container = Arrays.copyOf(container, container.length * 2);
         }
     }
 
