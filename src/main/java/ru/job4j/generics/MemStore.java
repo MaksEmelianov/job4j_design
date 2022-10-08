@@ -24,9 +24,6 @@ public class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        return storage.values().stream()
-                .filter(t -> id.equals(t.getId()))
-                .findFirst()
-                .orElse(null);
+        return storage.get(id);
     }
 }
