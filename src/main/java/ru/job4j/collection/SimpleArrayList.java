@@ -23,41 +23,35 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        if (isValidateIndex(index)) {
-            T element = get(index);
-            container[index] = newValue;
-            return element;
-        }
-        return null;
+        Objects.checkIndex(index, size);
+        T element = get(index);
+        container[index] = newValue;
+        return element;
     }
 
     @Override
     public T remove(int index) {
-        if (isValidateIndex(index)) {
-            T element = get(index);
-            if (index != container.length - 1) {
-                System.arraycopy(
-                        container,
-                        index + 1,
-                        container,
-                        index,
-                        container.length - index - 1
-                );
-            }
-            container[container.length - 1] = null;
-            modCount++;
-            size--;
-            return element;
+        Objects.checkIndex(index, size);
+        T element = get(index);
+        if (index != container.length - 1) {
+            System.arraycopy(
+                    container,
+                    index + 1,
+                    container,
+                    index,
+                    container.length - index - 1
+            );
         }
-        return null;
+        container[container.length - 1] = null;
+        modCount++;
+        size--;
+        return element;
     }
 
     @Override
     public T get(int index) {
-        if (isValidateIndex(index)) {
-            return container[index];
-        }
-        return null;
+        Objects.checkIndex(index, size);
+        return container[index];
     }
 
     @Override
@@ -88,9 +82,5 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 return container[indexNext++];
             }
         };
-    }
-
-    private boolean isValidateIndex(int index) {
-        return Objects.checkIndex(index, size) == index;
     }
 }
