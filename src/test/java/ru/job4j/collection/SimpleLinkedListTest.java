@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-@Disabled
 public class SimpleLinkedListTest {
 
     private LinkedList<Integer> list;
