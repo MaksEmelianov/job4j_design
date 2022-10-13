@@ -16,8 +16,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if ((float) count / capacity >= LOAD_FACTOR) {
             expand();
         }
-        if (table[getIndex(key)] == null) {
-            table[getIndex(key)] = new MapEntry<>(key, value);
+        int tmpIndex = getIndex(key);
+        if (table[tmpIndex] == null) {
+            table[tmpIndex] = new MapEntry<>(key, value);
             rsl = true;
             count++;
             modCount++;
@@ -31,11 +32,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int hash(int hashCode) {
-        return hashCode == 0 ? 0 : hashCode ^ (hashCode >>> capacity);
+        return hashCode == 0 ? 0 : hashCode ^ (hashCode >>> 16);
     }
 
     private int indexForHash(int hash) {
-        return hash & (table.length - 1);
+        return hash & (capacity - 1);
     }
 
     private void expand() {
@@ -83,13 +84,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        if (isSeatTaken(key) && checkCompareNoNull(key)) {
+        if (isSeatTaken(key) && checkCompareNoNull(key)
+        || (key == null && table[0].key == null)) {
             table[getIndex(key)] = null;
-            count--;
-            modCount++;
-            rsl = true;
-        } else if (key == null && table[0].key == null) {
-            table[0] = null;
             count--;
             modCount++;
             rsl = true;
