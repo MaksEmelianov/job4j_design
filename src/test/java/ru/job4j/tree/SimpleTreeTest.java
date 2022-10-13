@@ -42,4 +42,10 @@ public class SimpleTreeTest {
         tree.add(3, 4);
         assertThat(tree.add(2, 1)).isFalse();
     }
+
+    @Test
+    void whenCheckStatusAdd() {
+        Tree<Integer> tree = new SimpleTree<>(0);
+        assertThat(tree.add(0, 1)).isTrue();
+    }
 }
