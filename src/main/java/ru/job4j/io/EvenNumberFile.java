@@ -1,12 +1,25 @@
 package ru.job4j.io;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 public class EvenNumberFile {
 
     public static void main(String[] args) {
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("input.txt"))) {
+            reader.lines().forEach(System.out::println);
+            /*
+            for (String line = in.readLine(); line != null; line = in.readLine()) {
+                System.out.println(line);
+            }
+            */
+        } catch (FileNotFoundException fn) {
+            fn.printStackTrace();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+
+        /*
         try (FileInputStream in = new FileInputStream("even.txt")) {
             StringBuilder text = new StringBuilder();
             int read;
@@ -25,5 +38,6 @@ public class EvenNumberFile {
         } catch (IOException io) {
             io.printStackTrace();
         }
+        */
     }
 }
