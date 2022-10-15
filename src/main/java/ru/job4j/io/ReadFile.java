@@ -20,8 +20,6 @@ public class ReadFile {
                 System.out.println(line);
             }
             */
-        } catch (FileNotFoundException fileNotFound) {
-            fileNotFound.printStackTrace();
         } catch (IOException io) {
             io.printStackTrace();
         }

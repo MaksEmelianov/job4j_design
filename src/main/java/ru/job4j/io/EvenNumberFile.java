@@ -13,8 +13,6 @@ public class EvenNumberFile {
                 System.out.println(line);
             }
             */
-        } catch (FileNotFoundException fn) {
-            fn.printStackTrace();
         } catch (IOException io) {
             io.printStackTrace();
         }
