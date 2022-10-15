@@ -12,7 +12,7 @@ public class LogFilter {
 
     public List<String> filter(String file) {
         List<String> rsl = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("log.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             rsl = reader.lines()
                     .filter(s -> s.split("\"")[2].startsWith(" 404 "))
                     .toList();
