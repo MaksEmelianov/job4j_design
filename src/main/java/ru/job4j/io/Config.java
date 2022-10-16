@@ -19,8 +19,8 @@ public class Config {
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
             reader.lines()
-                    .filter(s -> !s.startsWith("#") && !s.isBlank() && validate(s))
-                    /*.filter(this::validate)*/
+                    /*.filter(s -> !s.startsWith("#") && !s.isBlank() && validate(s))*/
+                    .filter(this::validate)
                     .map(s -> s.split("="))
                     .forEach(s -> values.put(s[0], s[1]));
         } catch (IOException io) {
@@ -29,9 +29,13 @@ public class Config {
     }
 
     private boolean validate(String line) {
-        String[] split = line.split("=", 2);
-        if (line.contains("=") && !split[0].isBlank() && !split[1].isBlank()) {
-            return true;
+        if (!line.startsWith("#") && !line.isBlank()) {
+            String[] split = line.split("=", 2);
+            if (line.contains("=") && !split[0].isBlank() && !split[1].isBlank()) {
+                return true;
+            }
+        } else {
+            return false;
         }
         throw new IllegalArgumentException();
     }
