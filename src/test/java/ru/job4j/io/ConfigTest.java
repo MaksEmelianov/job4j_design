@@ -28,4 +28,25 @@ public class ConfigTest {
         config.load();
         assertThat(config.value("name")).isEqualTo("Petr");
     }
+
+    @Test
+    void whenPairWithoutEquals() {
+        String path = "./data/pair_throw_without_equals.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void whenPairWithoutKey() {
+        String path = "./data/pair_throw_without_key.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void whenPairWithoutValue() {
+        String path = "./data/pair_throw_without_value.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class);
+    }
 }
