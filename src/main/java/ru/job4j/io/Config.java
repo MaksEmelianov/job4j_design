@@ -19,7 +19,7 @@ public class Config {
     public void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
             reader.lines()
-                    /*.filter(s -> !s.startsWith("#") && !s.isBlank() && validate(s))*/
+                    .filter(s -> !s.startsWith("#") && !s.isBlank())
                     .filter(this::validate)
                     .map(s -> s.split("="))
                     .forEach(s -> values.put(s[0], s[1]));
@@ -29,15 +29,17 @@ public class Config {
     }
 
     private boolean validate(String line) {
-        if (!line.startsWith("#") && !line.isBlank()) {
-            String[] split = line.split("=", 2);
-            if (line.contains("=") && !split[0].isBlank() && !split[1].isBlank()) {
-                return true;
-            }
-        } else {
-            return false;
+        String[] split = line.split("=", 2);
+        if (!line.contains("=")) {
+            throw new IllegalArgumentException("There is a string that does not contain =");
         }
-        throw new IllegalArgumentException();
+        if (split[0].isBlank()) {
+            throw new IllegalArgumentException("There is a string containing an empty key");
+        }
+        if (split[1].isBlank()) {
+            throw new IllegalArgumentException("There is a string containing an empty value");
+        }
+        return true;
     }
 
     public String value(String key) {
