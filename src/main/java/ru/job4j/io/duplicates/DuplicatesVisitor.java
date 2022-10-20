@@ -9,41 +9,27 @@ import java.util.*;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
-    private List<Path> pathList = new ArrayList<>();
+    private Map<FileProperty, List<Path>> map = new HashMap<>();
 
-    public List<Path> getDuplicates() {
-        return findDuplicates(pathList);
-    }
-
-    public Path getOriginalFile() {
-        List<Path> list = findDuplicates(pathList);
-        if (list.isEmpty()) {
-            throw new IllegalStateException("No duplicates found");
+    public void printDuplicates() {
+        for (var entry : map.entrySet()) {
+            if (entry.getValue().size() > 1) {
+                System.out.printf("Original file: %s | Size: %s%n",
+                        entry.getKey().getName(), entry.getKey().getSize());
+                System.out.println("Duplicate list: ");
+                entry.getValue().forEach(System.out::println);
+            }
         }
-        Path duplicate = list.get(0);
-        return pathList.stream()
-                .filter(path -> isEqualsFiles(duplicate, path))
-                .findFirst()
-                .orElse(null);
-    }
-
-    private boolean isEqualsFiles(Path duplicate, Path path) {
-        return duplicate.toFile().getName().equals(path.toFile().getName())
-                && duplicate.toFile().length() == path.toFile().length();
-    }
-
-    private List<Path> findDuplicates(List<Path> list) {
-        Set<FileProperty> tmp = new HashSet<>();
-        return list.stream()
-                .filter(path -> !tmp.add(
-                        new FileProperty(path.toFile().getName(), path.toFile().length())))
-                .sorted()
-                .toList();
     }
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        pathList.add(file);
+        FileProperty fileProperty = new FileProperty(
+                file.toFile().getName(), file.toFile().length());
+        if (!map.containsKey(fileProperty)) {
+            map.putIfAbsent(fileProperty, new ArrayList<>());
+        }
+        map.get(fileProperty).add(file);
         return super.visitFile(file, attrs);
     }
 }
