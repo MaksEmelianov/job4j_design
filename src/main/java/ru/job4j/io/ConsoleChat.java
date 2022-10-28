@@ -44,11 +44,11 @@ public class ConsoleChat {
             }
         }
         saveLog(log);
-//        switch (textIn) {
-//            case OUT -> statusChat = false;
-//            case STOP -> statusAnswer = false;
-//            case CONTINUE -> statusAnswer = true;
-//        }
+        /*switch (textIn) {
+            case OUT -> statusChat = false;
+            case STOP -> statusAnswer = false;
+            case CONTINUE -> statusAnswer = true;
+        }*/
     }
 
     private String getRandomPhrase() {
