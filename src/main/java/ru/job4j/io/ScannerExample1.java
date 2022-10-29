@@ -1,0 +1,26 @@
+package ru.job4j.io;
+
+import java.io.CharArrayReader;
+import java.util.Scanner;
+
+public class ScannerExample1 {
+
+    public static void main(String[] args) {
+        String ls = System.lineSeparator();
+        String data = String.join(
+                ls,
+                "1 A 2",
+                "3 4 B",
+                "C 5 6"
+        );
+        Scanner scanner = new Scanner(new CharArrayReader(data.toCharArray()));
+        while (scanner.hasNext()) {
+            if (scanner.hasNextInt()) {
+                System.out.print(scanner.nextInt());
+                System.out.print(" ");
+            } else {
+                scanner.next();
+            }
+        }
+    }
+}
