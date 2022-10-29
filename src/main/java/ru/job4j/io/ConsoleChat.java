@@ -24,6 +24,8 @@ public class ConsoleChat {
         boolean statusAnswer = true;
         boolean oldStatusAnswer;
         List<String> log = new ArrayList<>();
+        List<String> listPhrases = readPhrases();
+        Random random = new Random();
         while (statusChat) {
             Scanner scanner = new Scanner(System.in);
             String textIn = scanner.nextLine();
@@ -38,21 +40,16 @@ public class ConsoleChat {
                 statusChat = false;
             }
             if (statusChat && statusAnswer && oldStatusAnswer) {
-                textAnswer = getRandomPhrase();
+                textAnswer = getRandomPhrase(listPhrases, random);
                 System.out.println(textAnswer);
                 log.add(textAnswer);
             }
         }
         saveLog(log);
-        /*switch (textIn) {
-            case OUT -> statusChat = false;
-            case STOP -> statusAnswer = false;
-            case CONTINUE -> statusAnswer = true;
-        }*/
     }
 
-    private String getRandomPhrase() {
-        return readPhrases().get(new Random().nextInt(9));
+    private String getRandomPhrase(List<String> phrases, Random random) {
+        return phrases.get(random.nextInt(9));
     }
 
     private List<String> readPhrases() {
