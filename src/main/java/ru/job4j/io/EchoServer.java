@@ -21,10 +21,8 @@ public class EchoServer {
                     String path = firstLine[1];
                     isValidateFirstLine(firstLine, path);
                     String msg = path.split("=")[1];
-                    if ("Exit".equals(msg)) {
+                    if ("Bye".equals(msg)) {
                         server.close();
-                    } else {
-                        System.out.println(msg);
                     }
                     out.flush();
                 }
