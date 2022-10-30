@@ -17,16 +17,30 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                        System.out.println(str);
-                        String firstLine = str.split(System.lineSeparator())[0];
-                        if (firstLine.contains("/?msg=Bye")) {
-                            server.close();
-                        }
+                    String[] firstLine = in.readLine().split(" ");
+                    String path = firstLine[1];
+                    isValidateFirstLine(firstLine, path);
+                    String msg = path.split("=")[1];
+                    if ("Exit".equals(msg)) {
+                        server.close();
+                    } else {
+                        System.out.println(msg);
                     }
                     out.flush();
                 }
             }
+        }
+    }
+
+    private static void isValidateFirstLine(String[] firstLine, String path) {
+        if (firstLine.length != 3) {
+            throw new IllegalArgumentException("Check for arguments");
+        }
+        if (!path.contains("msg")) {
+            throw new IllegalArgumentException("No msg");
+        }
+        if (!path.contains("=")) {
+            throw new IllegalArgumentException("No separator =");
         }
     }
 }
