@@ -13,7 +13,6 @@ public class CSVReader {
 
     public static void handle(ArgsName argsName) {
         isValidateArgs(argsName);
-
         String delimiter = argsName.get("delimiter");
         String out = argsName.get("out");
         String[] columns = argsName.get("filter").split(",");
@@ -98,23 +97,9 @@ public class CSVReader {
             throw new IllegalArgumentException("Unsupported format file, csv is needed");
         }
     }
-    /*public static void main(String[] args) throws IOException {
-        String data = String.join(
-                System.lineSeparator(),
-                "name;age;last_name;education",
-                "Tom;20;Smith;Bachelor",
-                "Jack;25;Johnson;Undergraduate",
-                "William;30;Brown;Secondary special"
-        );
-        File file = Paths.get("./source.csv").toFile();
-        ArgsName argsName = ArgsName.of(
-                new String[]{
-                "-path=" + file.getAbsolutePath(),
-                        "-delimiter=;",
-                        "-out=./target_csv.csv",
-                        "-filter=name,age,education"
-        });
-        Files.writeString(file.toPath(), data);
+
+    public static void main(String[] args) throws IOException {
+        ArgsName argsName = ArgsName.of(args);
         CSVReader.handle(argsName);
-    }*/
+    }
 }
