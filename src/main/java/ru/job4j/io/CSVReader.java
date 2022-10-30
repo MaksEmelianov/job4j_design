@@ -36,7 +36,8 @@ public class CSVReader {
         }
     }
 
-    private static void findIndexFilters(String[] columns, List<Integer> indexes, List<String[]> lines) {
+    private static void findIndexFilters(String[] columns,
+                                         List<Integer> indexes, List<String[]> lines) {
         for (String col : columns) {
             String[] get = lines.get(0);
             for (int i = 0; i < get.length; i++) {
@@ -50,10 +51,11 @@ public class CSVReader {
     private static void printTable(ArgsName argsName, String out,
                                    List<Integer> indexes, List<String[]> lines) {
         StringBuilder builder = new StringBuilder();
+        boolean isEqualsOut = "stdout".equals(out);
         for (var line : lines) {
             for (int i = 0; i < indexes.size(); i++) {
                 Integer index = indexes.get(i);
-                if (out.equals("stdout")) {
+                if (isEqualsOut) {
                     System.out.print(line[index]);
                     if (i != indexes.size() - 1) {
                         System.out.print(";");
@@ -66,13 +68,13 @@ public class CSVReader {
                 }
 
             }
-            if (out.equals("stdout")) {
+            if (isEqualsOut) {
                 System.out.println();
             } else {
                 builder.append(System.lineSeparator());
             }
         }
-        if (!out.equals("stdout")) {
+        if (!isEqualsOut) {
             File target = Path.of(argsName.get("out")).toFile();
             try (PrintWriter writer = new PrintWriter(new FileWriter(target))) {
                 writer.write(builder.toString());
