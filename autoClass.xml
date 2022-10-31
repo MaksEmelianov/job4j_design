@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<auto shipping="true" countWheels="6" number="H123PE123RUS">
+    <parametrs yearRelease="2010" engineCapacity="1923"/>
+    <drivers>
+        <driver>Maks</driver>
+        <driver>Petr</driver>
+    </drivers>
+</auto>
