@@ -9,16 +9,13 @@ public class UsageLog4j {
     public static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        int i = 20;
-        boolean bl = true;
-        float ft = 50.1F;
-        double db = 1.1433453453435343;
-        byte dt = 45;
-        short st = 1290;
-        char ch = 15001;
-        long lg = 51_244_365_545_464L;
-        LOG.debug("{}, {}, {}, {}, {}, {}, {}, {}",
-                i, bl, ft, db, dt, st, ch, lg);
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.error("Exception in lod example", e);
+            /*LOG.error(e.getMessage());
+            LOG.error("Error {}, User {}", e, "Petr");*/
+        }
         /*LOG.trace("trace message");
         LOG.debug("debug message");
         LOG.info("info message");
