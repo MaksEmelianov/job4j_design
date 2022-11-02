@@ -29,4 +29,24 @@ public class Auto {
                 + ", drivers=" + Arrays.toString(drivers)
                 + '}';
     }
+
+    public boolean isShipping() {
+        return shipping;
+    }
+
+    public int getCountWheels() {
+        return countWheels;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public Parameter getParameter() {
+        return parameter;
+    }
+
+    public String[] getDrivers() {
+        return drivers;
+    }
 }

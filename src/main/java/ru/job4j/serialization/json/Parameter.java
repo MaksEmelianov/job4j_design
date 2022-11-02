@@ -17,4 +17,12 @@ public class Parameter {
                 + ", engineCapacity=" + engineCapacity
                 + '}';
     }
+
+    public int getYearRelease() {
+        return yearRelease;
+    }
+
+    public int getEngineCapacity() {
+        return engineCapacity;
+    }
 }

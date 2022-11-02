@@ -3,7 +3,7 @@ package ru.job4j.serialization.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class AutoMain {
+public class AutoMainGson {
 
     public static void main(String[] args) {
         final Auto auto = new Auto(true, 6, "A123AA123RUS",
