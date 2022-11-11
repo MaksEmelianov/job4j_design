@@ -1,17 +1,21 @@
-create table users(
-    id serial primary key,
-    name varchar,
-    role_id integer references roles(id)
-);
-
 create table roles(
     id serial primary key,
-    name varchar
+    name varchar(255)
 );
 
 create table rights(
     id serial primary key,
-    name varchar
+    name varchar(255)
+);
+
+create table statuses(
+    id serial primary key,
+    name varchar(255)
+);
+
+create table categories(
+    id serial primary key,
+    name varchar(255)
 );
 
 create table roles_rights(
@@ -20,9 +24,15 @@ create table roles_rights(
     right_id integer references rights(id)
 );
 
-create table items(
+create table users(
     id serial primary key,
     name varchar,
+    role_id integer references roles(id)
+);
+
+create table items(
+    id serial primary key,
+    name varchar(255),
     text text,
     user_id integer references users(id),
     categ_id integer references categories(id),
@@ -37,16 +47,6 @@ create table comments(
 
 create table files(
     id serial primary key,
-    name varchar,
-    item_id references item(id)
-);
-
-create table statuses(
-    id serial primary key,
-    name varchar
-);
-
-create table categories(
-    id serial primary key,
-    name varchar
+    name varchar(255),
+    item_id integer references item(id)
 );
