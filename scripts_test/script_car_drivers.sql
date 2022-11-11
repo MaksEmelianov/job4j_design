@@ -12,8 +12,8 @@ create table drivers(
 
 create table drivers_cars(
     id serial primary key,
-    car_id references cars(id),
-    driver_is references drivers(id)
+    car_id integer references cars(id),
+    driver_id integer references drivers(id)
 );
 
 insert into cars(name) values ('VAZ 2101');

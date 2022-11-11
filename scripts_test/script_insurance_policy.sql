@@ -12,9 +12,9 @@ create table users(
 );
 
 create table users_policy(
-    id serial primaty key,
+    id serial primary key,
     policy_id integer references policy_number(id) unique,
-    user_id integer references users(id) unique,
+    user_id integer references users(id) unique
 );
 
 insert into policy_number (number) values (123312312);
