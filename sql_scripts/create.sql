@@ -48,5 +48,5 @@ create table comments(
 create table files(
     id serial primary key,
     name varchar(255),
-    item_id integer references item(id)
+    item_id integer references items(id)
 );
