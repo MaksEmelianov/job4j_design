@@ -27,8 +27,8 @@ select d.name
 from departments d
 left join employees e
 on d.id = e.dep_id
+where e.dep_id is null
 group by d.name
-having count(e.id) = 0;
 
 select d.name, count(e.id)
 from employees e
