@@ -29,18 +29,15 @@ create view request_mix as
     select c.id, c.name as "Name car", cb.name as "Name body",
     ce.name as "Name engine", ct.name as "Name trans"
     from cars c
-    right join car_bodies cb
-    on cb.id = c.body_id
-    right join car_engines ce
-    on ce.id = c.engine_id
+    left join car_bodies cb
+    on c.body_id = cb.id
+    left join car_engines ce
+    on c.engine_id = ce.id
     right join car_transmissions ct
-    on ct.id = c.trans_id
+    on c.trans_id = ct.id
     where (c.name is not null or cb.name is not null
     or ce.name is not null or ct.name is not null) and
     c.name like '%BMW%' or ct.name = 'Manual'
-    group by (c.id, c.name, cb.name,
-    ce.name, ct.name)
-    having count(ct.id) > 0 or count(ce.id) > 1
 
 select c.name as "Name car", ce.name as "Name engine"
 from request_mix
