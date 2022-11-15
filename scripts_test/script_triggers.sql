@@ -120,6 +120,5 @@ LANGUAGE 'plpgsql';
 
 create trigger adding_to_history_row_trigger
     after insert on products
-    referencing new table as insetred
     for each row
     execute procedure adding_to_history();
