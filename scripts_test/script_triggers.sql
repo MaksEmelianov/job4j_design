@@ -15,12 +15,6 @@ create table history_of_price(
     date timestamp
 );
 
-create trigger discount_trigger
-    after insert
-    on products
-    for each row
-    execute procedure discount();
-
 create or replace function discount()
     returns trigger as
 $$
@@ -32,6 +26,12 @@ $$
     END;
 $$
 LANGUAGE 'plpgsql';
+
+create trigger discount_trigger
+    after insert
+    on products
+    for each row
+    execute procedure discount();
 
 insert into products (name, producer, count, price) VALUES ('product_3', 'producer_3', 8, 115);
 
@@ -49,12 +49,6 @@ drop trigger discount_trigger on products;
 
 -- TRIGGER STATEMENT
 
-create trigger tax_trigger
-    after insert on products
-    referencing new table as inserted
-    for each statement
-    execute procedure tax();
-
 create or replace function tax()
     returns trigger as
 $$
@@ -67,9 +61,17 @@ $$
 $$
 LANGUAGE 'plpgsql';
 
--- NEW TRIGGERS
+create trigger tax_trigger
+    after insert on products
+    referencing new table as inserted
+    for each statement
+    execute procedure tax();
 
-create or replace function tax_plus20()
+-- NEW TRIGGERS, код выполнения задания
+
+-- tax_plus20_state
+
+create or replace function tax_plus20_state()
     returns trigger as
 $$
     BEGIN
@@ -84,12 +86,26 @@ create trigger tax_plus20_state_trigger
     after insert on products
     referencing new table as insetred
     for each statement
-    execute procedure tax_plus20();
+    execute procedure tax_plus20_state();
+
+-- tax_plus20_row
+
+create or replace function tax_plus20_row()
+    returns trigger as
+$$
+    BEGIN
+        new.price = new.price + new.price * 0.2;
+        return new;
+    END;
+$$
+LANGUAGE 'plpgsql';
 
 create trigger tax_plus20_row_trigger
     before insert on products
     for each row
-    execute procedure tax_plus20();
+    execute procedure tax_plus20_row();
+
+-- adding_to_history
 
 create or replace function adding_to_history()
     returns trigger as
