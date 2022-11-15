@@ -1,8 +1,9 @@
+
 select p.name
 from product p
 inner join type t
 on p.type_id = t.id
-where t.id = 1;
+where t.name like '%СЫР%';
 
 select p.name
 from product p
@@ -32,7 +33,7 @@ select p.name
 from product p
 inner join type t
 on p.type_id = t.id
-where t.id = 1 or t.id = 3;
+where t.name like '%СЫР%' or t.name like '%МОЛОКО%';
 
 select t.name
 from type t

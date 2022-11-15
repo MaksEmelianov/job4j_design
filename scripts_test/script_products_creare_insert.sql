@@ -11,7 +11,7 @@ create table product(
     price float
 );
 
-insert into type(name) values ('CЫР'), ('КОЛБАСА'), ('МОЛОКО'), ('РЫБА'), ('МЯСО'), ('МОРОЖЕНОЕ');
+insert into type(name) values ('СЫР'), ('КОЛБАСА'), ('МОЛОКО'), ('РЫБА'), ('МЯСО'), ('МОРОЖЕНОЕ');
 
 insert into product(name, type_id, expired_date, price) values
 ('Плавленный сыр0', 1, '2022-11-11', 325.5),
