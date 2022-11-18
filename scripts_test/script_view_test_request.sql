@@ -37,7 +37,7 @@ create view request_mix as
     on c.trans_id = ct.id
     where (c.name is not null or cb.name is not null
     or ce.name is not null or ct.name is not null) and
-    c.name like '%BMW%' or ct.name = 'Manual'
+    c.name like '%BMW%' or ct.name = 'Manual';
 
-select c.name as "Name car", ce.name as "Name engine"
+select "Name car", "Name engine"
 from request_mix
