@@ -1,0 +1,8 @@
+-- start transaction;
+-- begin transaction;
+-- set transaction режим_транзакции;
+-- set session characteristics as transaction isolation level serializable; для всех
+-- set transaction snapshot id_снимка;
+-- savepoint имя_точки_сохранения;
+-- release savepoint имя_точки_сохранения; - удаление точки
+-- rollback to savepoint имя_точки_сохранения;
