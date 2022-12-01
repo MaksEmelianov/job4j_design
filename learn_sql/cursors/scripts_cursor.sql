@@ -1,0 +1,12 @@
+begin transaction;
+declare curs cursor for select * from products;
+fetch last from curs;
+move backward 4 from curs;
+fetch prior from curs;
+move backward 7 from curs;
+fetch prior from curs;
+move backward 4 from curs;
+fetch prior from curs;
+fetch prior from curs;
+close curs;
+commit;
