@@ -40,6 +40,12 @@ public class ImportDB {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(dump))) {
             bufferedReader.lines().forEach(s -> {
                 String[] split = s.split(";", 3);
+                if (split.length != 3) {
+                    throw new IllegalArgumentException("Check count args");
+                }
+                if (split[0].isBlank() || split[1].isBlank()) {
+                    throw new IllegalArgumentException("Name or email empty, check args in list");
+                }
                 users.add(new User(split[0], split[1]));
             });
         }
