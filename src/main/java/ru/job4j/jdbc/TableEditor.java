@@ -21,10 +21,6 @@ public class TableEditor implements AutoCloseable {
     }
 
     private void initConnection() throws ClassNotFoundException, SQLException, IOException {
-        try (InputStream in = TableEditor.class.getClassLoader()
-                .getResourceAsStream("app.properties")) {
-            properties.load(in);
-        }
         Class.forName(properties.getProperty("driver_class"));
         var url = properties.getProperty("url");
         var login = properties.getProperty("login");
@@ -88,17 +84,22 @@ public class TableEditor implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        try (TableEditor tableEditor = new TableEditor(new Properties())) {
-            String tableName = "table_test";
-            tableEditor.createTable(tableName);
-            printScheme(tableEditor, tableName);
-            tableEditor.addColumn(tableName, "name", "varchar(255)");
-            printScheme(tableEditor, tableName);
-            tableEditor.renameColumn(tableName, "name", "full_name");
-            printScheme(tableEditor, tableName);
-            tableEditor.dropColumn(tableName, "full_name");
-            printScheme(tableEditor, tableName);
-            tableEditor.dropTable(tableName);
+        Properties properties = new Properties();
+        try (InputStream in = TableEditor.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
+            properties.load(in);
+            try (TableEditor tableEditor = new TableEditor(properties)) {
+                String tableName = "table_test";
+                tableEditor.createTable(tableName);
+                printScheme(tableEditor, tableName);
+                tableEditor.addColumn(tableName, "name", "varchar(255)");
+                printScheme(tableEditor, tableName);
+                tableEditor.renameColumn(tableName, "name", "full_name");
+                printScheme(tableEditor, tableName);
+                tableEditor.dropColumn(tableName, "full_name");
+                printScheme(tableEditor, tableName);
+                tableEditor.dropTable(tableName);
+            }
         }
     }
 
